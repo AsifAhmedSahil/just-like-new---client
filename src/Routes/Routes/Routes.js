@@ -1,3 +1,4 @@
+import Blogs from "../../Pages/Blogs/Blogs";
 import Login from "../../Pages/login/Login";
 
 const { createBrowserRouter } = require("react-router-dom");
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
                 path:"/login",
                 element:<Login/>
             },
+            {
+                path:"/blogs",
+                element:<Blogs/>
+            }
 
         ]
     }
