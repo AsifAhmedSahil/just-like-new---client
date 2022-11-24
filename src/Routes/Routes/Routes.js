@@ -1,4 +1,5 @@
 import Blogs from "../../Pages/Blogs/Blogs";
+import Categories from "../../Pages/Home/Categories/Categories";
 import Login from "../../Pages/login/Login";
 
 const { createBrowserRouter } = require("react-router-dom");
@@ -22,7 +23,12 @@ export const router = createBrowserRouter([
             {
                 path:"/blogs",
                 element:<Blogs/>
-            }
+            },
+            {
+                path:"/category/:id",
+                element:<Categories/>,
+                // loader:({params}) => fetch(`https://blockchain-courses-server-asifahmedsahil12-gmailcom.vercel.app/courses/${params.id}`)
+            },
 
         ]
     }
