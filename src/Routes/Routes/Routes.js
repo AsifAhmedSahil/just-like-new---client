@@ -31,10 +31,11 @@ export const router = createBrowserRouter([
                 path:"/blogs",
                 element:<Blogs/>
             },
+            
             {
-                path:"/category/:id",
+                path:"/category/:name",
                 element:<Categories/>,
-                // loader:({params}) => fetch(`https://blockchain-courses-server-asifahmedsahil12-gmailcom.vercel.app/courses/${params.id}`)
+                loader:({params}) => fetch(`http://localhost:5000/category/${params.name}`)
             },
 
         ]

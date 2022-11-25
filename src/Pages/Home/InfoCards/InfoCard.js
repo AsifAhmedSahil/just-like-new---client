@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const InfoCard = ({card}) => {
-    const {_id,brand,img} = card;
+    const {_id,name,brand,img} = card;
+    console.log(brand)
   return (
     <div className="mt-9">
         
@@ -14,7 +15,7 @@ const InfoCard = ({card}) => {
           <h2 className="card-title">Brand: {brand}</h2>
           
           <div className="card-actions justify-end">
-            <Link to={`/category/${_id}`}><button className="btn btn-primary">Explore</button></Link>
+            <Link to={`/category/${brand}`}><button className="btn btn-primary">Explore</button></Link>
           </div>
         </div>
       </div>
