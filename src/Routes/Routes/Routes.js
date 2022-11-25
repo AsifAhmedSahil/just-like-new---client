@@ -1,6 +1,8 @@
+import AddProduct from "../../Dashboard/AddProduct/AddProduct";
 import AllUsers from "../../Dashboard/AllUsers/AllUsers";
 import Dashboard from "../../Dashboard/Dashboard/Dashboard";
 import MyOrder from "../../Dashboard/MyOrder/MyOrder";
+import MyProduct from "../../Dashboard/MyProduct/MyProduct";
 import DashboardLayout from "../../Layout/DashboardLayout";
 import Blogs from "../../Pages/Blogs/Blogs";
 import Categories from "../../Pages/Home/Categories/Categories";
@@ -55,6 +57,13 @@ export const router = createBrowserRouter([
             {
                 path:"/dashboard/allusers",
                 element:<AdminRoute><AllUsers/></AdminRoute>
+            },
+            {
+                path:"/dashboard/addproduct",
+                element:<AddProduct/>
+            },{
+                path:"/dashboard/myproduct",
+                element:<MyProduct/>
             }
         ]
     }
