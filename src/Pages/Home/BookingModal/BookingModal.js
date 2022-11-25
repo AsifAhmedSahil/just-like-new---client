@@ -1,6 +1,6 @@
 import React from "react";
 
-const BookingModal = ({product}) => {
+const BookingModal = ({product,setProduct}) => {
     const {name,resellPrice} = product
 
     const handleBooking = event =>{
@@ -20,6 +20,7 @@ const BookingModal = ({product}) => {
         }
 
         console.log(booking);
+        setProduct(null)
     }
   return (
     <div>

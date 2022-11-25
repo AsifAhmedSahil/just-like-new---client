@@ -8,10 +8,10 @@ import ProductCard from './ProductCard'
 const Categories = () => {
 
   const data = useLoaderData()
-  console.log(data[0].name);
+  // console.log(data[0].name);
   
 
-  const[product,setProduct] = useState([])
+  const[product,setProduct] = useState(null)
  
 
   const {data:products = [],isLoading} = useQuery({
@@ -32,7 +32,7 @@ const Categories = () => {
     {
       product &&
       
-      <BookingModal product={product}/>
+      <BookingModal product={product} setProduct={setProduct}/>
       
       }
     </>
