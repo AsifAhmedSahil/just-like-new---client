@@ -6,6 +6,7 @@ import Blogs from "../../Pages/Blogs/Blogs";
 import Categories from "../../Pages/Home/Categories/Categories";
 import Login from "../../Pages/login/Login";
 import SignUp from "../../Pages/login/SignUp";
+import AdminRoute from "./AdminRoute/AdminRoute";
 import PrivateRoute from "./PrivateRoute/PrivateRoutes";
 
 const { createBrowserRouter } = require("react-router-dom");
@@ -53,7 +54,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:"/dashboard/allusers",
-                element:<AllUsers/>
+                element:<AdminRoute><AllUsers/></AdminRoute>
             }
         ]
     }

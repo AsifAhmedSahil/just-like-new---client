@@ -20,7 +20,7 @@ const AllUsers = () => {
         <th></th>
         <th>Name</th>
         <th>Email</th>
-        <th>Action</th>
+        <th>Role</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -29,9 +29,10 @@ const AllUsers = () => {
      {
         userData.map((user,i)=> <tr key={userData._id}>
         <th>{i+1}</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
+        <td>{user.name}</td>
+        <td>{user.email}</td>
+        <td>{user.role}</td>
+        <td><button className='btn btn-xs rounded bg-red-600 text-white'>DELETE</button></td>
       </tr>)
      }
     
