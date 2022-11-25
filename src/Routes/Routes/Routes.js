@@ -64,7 +64,8 @@ export const router = createBrowserRouter([
             },{
                 path:"/dashboard/myproduct",
                 element:<MyProduct/>
-            }
+            },
+            
         ]
     }
 ])
