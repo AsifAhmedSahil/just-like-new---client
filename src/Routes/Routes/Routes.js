@@ -1,4 +1,6 @@
 import Dashboard from "../../Dashboard/Dashboard/Dashboard";
+import MyOrder from "../../Dashboard/MyOrder/MyOrder";
+import DashboardLayout from "../../Layout/DashboardLayout";
 import Blogs from "../../Pages/Blogs/Blogs";
 import Categories from "../../Pages/Home/Categories/Categories";
 import Login from "../../Pages/login/Login";
@@ -42,6 +44,12 @@ export const router = createBrowserRouter([
     },
     {
         path:"/dashboard",
-        element:<PrivateRoute><Dashboard/></PrivateRoute>
+        element:<PrivateRoute><DashboardLayout/></PrivateRoute>,
+        children:[
+            {
+                path:"/dashboard",
+                element:<MyOrder/>
+            }
+        ]
     }
 ])

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form"; 
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import { toast } from 'react-toastify'
 
@@ -13,19 +13,23 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate()
   const handleSignUp = (data) => {
     console.log(data);
     setSignupError("")
     createUser(data.email,data.password,data.user_type)
     .then(result => {
         const user = result.user;
-        toast("User Created Successfully 🙂 ");
+        toast.success("User Created Successfully 🙂 ");
         console.log(user);
         const userInfo = {
             displayName: data.name
         }
         updateUser(userInfo)
-        .then(()=>{})
+        .then(()=>{
+          // navigate("/")
+          saveUser(data.name,data.email)
+        })
         .catch(err => console.log(err))
     })
     .catch(err => {
@@ -33,6 +37,36 @@ const SignUp = () => {
         setSignupError(err.message)
     });
   };
+
+  const saveUser = (name,email) =>{
+    const user = {name,email};
+    fetch("http://localhost:5000/users",{
+      method: 'POST',
+      headers:{
+        "content-type": "application/json"
+      },
+      body:JSON.stringify(user)
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("saveuser",data);
+      // setCreatedUserEmail(email)
+      getUserToken(email)
+    })
+  }
+
+  const getUserToken = email =>{
+    console.log(email);
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+    .then(res =>res.json())
+    .then(data => {
+      console.log(data)
+      if(data.accessToken){
+        localStorage.setItem("accessToken",data.accessToken);
+        navigate("/")
+      }
+    })
+  }
   return (
     <div className="h-[800px] flex justify-center items-center">
       <div className="w-96 p-7">
@@ -44,7 +78,9 @@ const SignUp = () => {
             </label>
             <input
               type="text"
-              {...register("name")}
+              {...register("name", {
+                required: "name is required",
+              })}
               className="input input-bordered w-full max-w-xs"
             />
           </div>
