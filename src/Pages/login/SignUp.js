@@ -27,7 +27,7 @@ const SignUp = () => {
     createUser(data.email,data.password,data.user_type)
     .then(result => {
         const user = result.user;
-        toast.success("User Created Successfully 🙂 ");
+        
         console.log(user);
         const userInfo = {
             displayName: data.name

@@ -1,3 +1,4 @@
+import AllUsers from "../../Dashboard/AllUsers/AllUsers";
 import Dashboard from "../../Dashboard/Dashboard/Dashboard";
 import MyOrder from "../../Dashboard/MyOrder/MyOrder";
 import DashboardLayout from "../../Layout/DashboardLayout";
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
             {
                 path:"/dashboard",
                 element:<MyOrder/>
+            },
+            {
+                path:"/dashboard/allusers",
+                element:<AllUsers/>
             }
         ]
     }
