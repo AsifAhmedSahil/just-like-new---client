@@ -1,13 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Context/AuthProvider";
+import ConfirmationModal from "../../Pages/Shared/ConfirmationModal/ConfirmationModal";
 import Loading from "../../Pages/Shared/Loading/Loading";
 
 const MyProduct = () => {
+  const [ deletingProduct,setDeletingProduct] = useState(null)
+
+  const closeModal = () =>{
+    setDeletingProduct(null)
+  }
+
+  
   const { user } = useContext(AuthContext);
   console.log(user.email);
   const {
-    data: products,
+    data: products =[] ,
     refetch,
     isLoading,
   } = useQuery({
@@ -23,11 +31,27 @@ const MyProduct = () => {
           }
         );
         const data = await res.json();
-        console.log(data);
+        // console.log(data);
         return data;
       } catch (error) {}
     },
   });
+  console.log(products);
+
+  const handleDelete = product => {
+    fetch(`http://localhost:5000/products/${product._id}`,{
+        method:"DELETE",
+        headers:{
+          authorization: `bearer ${localStorage.getItem("accessToken")}`
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        refetch()
+      })
+    console.log(products)
+  }
 
   //   if(isLoading){
   //     return <Loading/>
@@ -61,15 +85,26 @@ const MyProduct = () => {
                   <td>{product.name}</td>
                   <td>{product.email}</td>
                   <td>
-                    <button className="btn btn-error btn-sm rounded">
-                      Delete
-                    </button>
+                  <label onClick={()=>setDeletingProduct(product)} htmlFor="confirmation-modal" className="btn btn-error btn-sm rounded">
+                  Delete
+      </label>
+                    
                   </td>
                 </tr>
               ))}
+
+            
           </tbody>
         </table>
       </div>
+      {
+        deletingProduct && <ConfirmationModal
+        title={`Are You sure you want to delete? `}
+        closeModal={closeModal}
+        modalData = {deletingProduct}
+        sucessAction={handleDelete}
+        />
+      }
     </div>
   );
 };
