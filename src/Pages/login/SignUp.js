@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form"; 
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
-import { toast } from 'react-toastify'
+// import { toast } from 'react-toastify'
 import useToken from "../../hooks/useToken";
 
 const SignUp = () => {
@@ -122,19 +122,20 @@ const SignUp = () => {
                 required: "select user type",
               })}
             >
-              <option disabled selected>
+              <option  >
                 Buyer
               </option>
-              <option>Seller</option>
-              <option>Buyer</option>
+              <option value="seller">Seller</option>
+              <option value="buyer">Buyer</option>
             </select>
           </div>
+          
           <div>
-            <input
+            <button
               type="submit"
               className="btn bg-gray-600 w-full text-white mt-7"
               value="Sign Up"
-            />
+            ></button>
           </div>
         </form>
         <div className="text-center mt-4">

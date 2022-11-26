@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
+// import { toast } from "react-toastify";
 import { AuthContext } from "../../Context/AuthProvider";
 import ConfirmationModal from "../../Pages/Shared/ConfirmationModal/ConfirmationModal";
 import Loading from "../../Pages/Shared/Loading/Loading";
@@ -48,7 +49,11 @@ const MyProduct = () => {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        refetch()
+        if(data.deletedCount > 0){
+          refetch()
+          // toast("Data Deleted Successfully")
+        }
+        
       })
     console.log(products)
   }
