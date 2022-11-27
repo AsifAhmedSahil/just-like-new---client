@@ -43,6 +43,11 @@ const MyOrder = () => {
         bookings?.map((booking,i) => <tr key={booking._id}>
             <th>{i+1}</th>
             <td>{booking.product} </td>
+            <div className="avatar">
+  <div className="w-24 rounded-xl">
+    <img src={booking.img} alt=''/>
+  </div>
+</div>
             <td>{booking.user}</td>
             <td>{booking.email}</td>
             <td>৳{booking.price}</td>

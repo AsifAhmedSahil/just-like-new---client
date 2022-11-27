@@ -1,13 +1,15 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+// import { toast } from 'react-toastify';
 // import { toast } from 'react-toastify';
 import { AuthContext } from '../../Context/AuthProvider';
 import useToken from '../../hooks/useToken';
 
 const Login = () => {
   const { register, formState:{errors}, handleSubmit } = useForm();
-  const {SignIn} = useContext(AuthContext)
+  const {SignIn,providerLogin} = useContext(AuthContext)
   const [loginError, setLoginError] = useState("");
   const [loginUserEmail, setLoginUserEmail] = useState("");
   const [ token] = useToken(loginUserEmail)
@@ -27,7 +29,7 @@ const Login = () => {
     .then(result => {
       const user = result.user;
       console.log(user);
-      // toast.success("login")
+      // toast.success()
       setLoginUserEmail(data.email)
       
   })
@@ -36,6 +38,17 @@ const Login = () => {
     setLoginError(error.message);
   });
 
+  }
+
+  const googleProvider = new GoogleAuthProvider()
+
+  const handleGoogle = () =>{
+    providerLogin(googleProvider)
+    .then(result => {
+      const user = result.user;
+      console.log(user)
+    })
+    .catch(err => console.log(err))
   }
   return (
     <div className="h-[800px] flex justify-center items-center">
@@ -94,7 +107,7 @@ const Login = () => {
         </div>
 
         <div className="divider">OR</div>
-        <button className="btn btn-outline w-full rounded">
+        <button onClick={handleGoogle} className="btn btn-outline w-full rounded">
           CONTINUE WITH GOOGLE
         </button>
       </div>

@@ -13,6 +13,7 @@ const AddProduct = () => {
     
   const { register, handleSubmit } = useForm();
   const handleProduct = data =>{
+    console.log(data)
     const image = data.img[0]
     const formData = new FormData();
     formData.append("image",image);
@@ -27,15 +28,19 @@ const AddProduct = () => {
         if(imgData.success){
             // console.log(imgData.data.url);
             const product = {
-                name: data.name,
+                name: data.category,
+                sellerName:data.name,
                 location: data.location,
                 email:data.email,
                 Uses: data.Uses,
                 resellPrice:data.resellPrice,
                 OriginalPrice:data.OriginalPrice,
-                img:imgData.data.url
+                img:imgData.data.url,
+                conditions:data.conditions,
+                date:data.date
+                // catogory:data.catogory
               }
-            //   console.log(product)
+              console.log(product)
              // save products info to the database
         fetch('http://localhost:5000/products',{
             method:"POST",
@@ -59,21 +64,44 @@ const AddProduct = () => {
            <div className='w-96 p-7'>
             <h2 className="text-4xl">Add A Product</h2>
             <form onSubmit={handleSubmit(handleProduct)}>
-                <div className="form-control w-full max-w-xs">
-                    <label className="label" > <span className="label-text">Brand</span></label>
-                    <input type="text" {...register("name", {
-                        required: "Name is Required"
-                        
-                    })} className="input input-bordered w-full max-w-xs" />
-                    {/* {errors.name && <p className='text-red-500'>{errors.name.message}</p>} */}
-                </div>
+            <div className="form-control">
+                              <label className="label">
+                                  <span className="label-text">Full Name</span>
+                              </label>
+                              <input {...register("name")} placeholder="name" className="input input-bordered" type='text' />
+                          </div>
+
+                        <div className="form-control">
+                              <label className="label">
+                                  <span className="label-text">Select Category</span>
+                              </label>
+                              <select {...register("category", { required: true })}
+                                  className='input input-bordered'>
+                                  <option value="Hp">Hp</option>
+                                  <option value="Asus">Asus</option>
+                                  <option value="Dell">Dell</option>
+                              </select>
+                          </div>
+
+                          <div className="form-control">
+                              <label className="label">
+                                  <span className="label-text">Condition</span>
+                              </label>
+                              <select {...register("conditions", { required: true })}
+                                  className='input input-bordered'>
+                                  <option value="excellent">Excellent</option>
+                                  <option value="good">Good</option>
+                                  <option value="fair">Fair</option>
+                              </select>
+                          </div>
+
                 <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Email</span></label>
                     <input defaultValue={user?.email} type="email" {...register("email", {
                         required: true
                         
                     })} className="input input-bordered w-full max-w-xs" />
-                    {/* {errors.email && <p className='text-red-500'>{errors.email.message}</p>} */}
+                    
                 </div>
                 <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Location</span></label>
@@ -102,6 +130,16 @@ const AddProduct = () => {
                         required: "original price Required"
                     })} className="input input-bordered w-full max-w-xs" />
                     {/* {errors.name && <p className='text-red-500'>{errors.name.message}</p>} */}
+                </div>
+
+                {/* date */}
+                <div className="form-control w-full max-w-xs">
+                    <label className="label" > <span className="label-text">Date</span></label>
+                    <input type="date" {...register("date", {
+                        required: "Date is Required"
+
+                    })} className="input input-bordered w-full max-w-xs" />
+                    
                 </div>
                 
                 

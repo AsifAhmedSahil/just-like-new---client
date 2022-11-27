@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import React, { useState } from 'react'
 import ConfirmationModal from '../../Pages/Shared/ConfirmationModal/ConfirmationModal'
 
-const AllUsers = () => {
+const AllSellers = () => {
   const [ deletingUser,setDeletingUser] = useState(null)
   // AllSellers
   const closeModal = () =>{
@@ -47,6 +47,7 @@ const AllUsers = () => {
         
         <th>Name</th>
         <th>Email</th>
+        <th>Verify</th>
         <th>Role</th>
         <th>Action</th>
       </tr>
@@ -56,11 +57,13 @@ const AllUsers = () => {
      {
         userData.map((user,i)=> {
           return (
-            user?.role === "Buyer" && 
+            user?.role === "Seller" && 
             <tr key={userData._id}>
-            {/* <th>{i+1}</th> */}
+            
             <td>{user.name}</td>
             <td>{user.email}</td>
+            <td>Verify</td>
+            
             <td>{user.role}</td>
             <td>
             <label onClick={()=>setDeletingUser(user)} htmlFor="confirmation-modal" className="btn btn-error btn-sm rounded">
@@ -105,4 +108,4 @@ const AllUsers = () => {
   )
 }
 
-export default AllUsers
+export default AllSellers

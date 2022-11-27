@@ -1,4 +1,5 @@
 import AddProduct from "../../Dashboard/AddProduct/AddProduct";
+import AllSellers from "../../Dashboard/AllUsers/AllSellers";
 import AllUsers from "../../Dashboard/AllUsers/AllUsers";
 
 import MyOrder from "../../Dashboard/MyOrder/MyOrder";
@@ -12,7 +13,9 @@ import Login from "../../Pages/login/Login";
 import SignUp from "../../Pages/login/SignUp";
 import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
 import AdminRoute from "./AdminRoute/AdminRoute";
+import BuyerRoute from "./BuyerRoute/BuyerRoute";
 import PrivateRoute from "./PrivateRoute/PrivateRoutes";
+import SellerRoute from "./SellerRoute/SellerRoute";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../../Layout/Main");
@@ -23,6 +26,7 @@ export const router = createBrowserRouter([
     {
         path:"/",
         element:<Main></Main>,
+        errorElement:<DisplayError/>,
         children:[
             {
                 path:"/",
@@ -59,18 +63,22 @@ export const router = createBrowserRouter([
                 element:<Welcome/>
             },{
                 path:"/dashboard/myorder",
-                element:<MyOrder/>
+                element:<BuyerRoute><MyOrder/></BuyerRoute>
             },
             {
-                path:"/dashboard/allusers",
+                path:"/dashboard/allbuyers",
                 element:<AdminRoute><AllUsers/></AdminRoute>
             },
             {
+                path:"/dashboard/allsellers",
+                element:<AdminRoute><AllSellers/></AdminRoute>
+            },
+            {
                 path:"/dashboard/addproduct",
-                element:<AddProduct/>
+                element:<SellerRoute><AddProduct/></SellerRoute>
             },{
                 path:"/dashboard/myproduct",
-                element:<MyProduct/>
+                element:<SellerRoute><MyProduct/></SellerRoute>
             },
             {
                 path:"/dashboard/payment/:id",

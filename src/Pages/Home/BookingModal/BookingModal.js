@@ -4,7 +4,7 @@ import { AuthContext } from "../../../Context/AuthProvider";
 
 
 const BookingModal = ({product,setProduct}) => {
-    const {name,resellPrice} = product
+    const {name,resellPrice,img} = product
 
     const {user} = useContext(AuthContext)
 
@@ -22,6 +22,7 @@ const BookingModal = ({product,setProduct}) => {
             email,
             phone,
             location,
+            img:product.img,
             price:product.resellPrice
         }
 
@@ -67,6 +68,7 @@ const BookingModal = ({product,setProduct}) => {
           <form onSubmit={handleBooking} className="grid grid-cols-1 gap-5 mt-10">
           <input type="text" placeholder="Type here" disabled value={name} className="input w-full input-bordered" />
           <input type="text" placeholder="Type here" disabled value={resellPrice} className="input w-full input-bordered" />
+          <input type="text" placeholder="Type here" disabled value={img} className="input w-full input-bordered" />
           <input name="name" type="text" placeholder="name" defaultValue={user?.displayName} disabled  className="input w-full input-bordered" />
           <input name="email" type="text" placeholder="Email" defaultValue={user?.email} disabled  className="input w-full input-bordered" />
           <input name="phone" type="text" placeholder="Phone" className="input w-full input-bordered" />
