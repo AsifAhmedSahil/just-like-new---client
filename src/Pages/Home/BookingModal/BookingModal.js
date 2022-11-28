@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
+import { toast, useToast } from "react-toastify";
 // import { toast } from "react-toastify";
 import { AuthContext } from "../../../Context/AuthProvider";
 
 
-const BookingModal = ({product,setProduct}) => {
-    const {name,resellPrice,img} = product
+const BookingModal = ({product,setProduct,refetch}) => {
+    const {name,resellPrice,img,_id} = product
 
     const {user} = useContext(AuthContext)
 
@@ -18,6 +19,7 @@ const BookingModal = ({product,setProduct}) => {
 
         const booking = {
             product:product.name,
+            productID:product._id,
             user:name,
             email,
             phone,
@@ -27,25 +29,28 @@ const BookingModal = ({product,setProduct}) => {
         }
 
         console.log(booking);
-        fetch("http://localhost:5000/bookings",{
+        fetch("https://assignment-12-final-server.vercel.app/bookings",{
       method:"POST",
       headers:{
         "content-type": "application/json"
       },
       body: JSON.stringify(booking)
       
+      
     })
     .then(res => res.json())
       .then(data => {
-        console.log(data);
+        // console.log("from booking modal",data);
         
         if(data.acknowledged){
           setProduct(null)
-        //   refetch();
+          // refetch();
+          toast.success("booking Successfull")
          
         // }
         // else{
-        //   toast.error(data.message)
+         
+          
         }
       })
         
@@ -67,6 +72,7 @@ const BookingModal = ({product,setProduct}) => {
 
           <form onSubmit={handleBooking} className="grid grid-cols-1 gap-5 mt-10">
           <input type="text" placeholder="Type here" disabled value={name} className="input w-full input-bordered" />
+          <input type="text" placeholder="Type here" disabled value={_id} className="input w-full input-bordered" />
           <input type="text" placeholder="Type here" disabled value={resellPrice} className="input w-full input-bordered" />
           <input type="text" placeholder="Type here" disabled value={img} className="input w-full input-bordered" />
           <input name="name" type="text" placeholder="name" defaultValue={user?.displayName} disabled  className="input w-full input-bordered" />

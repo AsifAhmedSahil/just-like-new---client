@@ -19,10 +19,10 @@ const Navbar = () => {
           user?.uid ? 
          <>
          <li><Link to="/dashboard">Dashboard</Link></li>
-           <li><button onClick={handleLogout}>Sign out</button></li> 
+           <li><button  onClick={handleLogout}>Sign out</button></li> 
          </>
           : 
-          <li><Link to="/login">Login</Link></li>
+          <li><Link to="/login" >Login</Link></li>
         }
         {/* <button className='btn rounded '><Link to="/login">Login</Link></button> */}
         
@@ -39,7 +39,7 @@ const Navbar = () => {
         {menuItems}
       </ul>
     </div>
-    <Link to="/" className="btn btn-ghost normal-case text-xl">Just Like New</Link>
+    <Link to="/" className="btn btn-ghost normal-case text-xl font-bold py-4 mb-4">Just Like New </Link>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal p-0">

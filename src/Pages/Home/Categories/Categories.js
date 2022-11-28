@@ -13,7 +13,7 @@ const Categories = () => {
 
   const {data:products = [],isLoading,refetch} = useQuery({
     queryKey:['products'],
-    queryFn: ()=> fetch(`http://localhost:5000/category/${data[0]?.name}`)
+    queryFn: ()=> fetch(`https://assignment-12-final-server.vercel.app/category/${data[0]?.name}`)
     .then(res => res.json())
     
   })
@@ -25,7 +25,11 @@ const Categories = () => {
     <>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
       {
-        products.map(product => <ProductCard key={product._id} product={product} setProduct={setProduct}/>)
+        products.map(product => 
+          
+        <ProductCard key={product._id} product={product}
+         setProduct={setProduct}/>
+         )
       }
     </div>
 

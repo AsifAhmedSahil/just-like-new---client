@@ -7,17 +7,17 @@ const Footer = () => {
       <footer className="footer p-10 bg-base-200 text-base-content my-9">
   <div>
     <span className="footer-title">Services</span> 
-    <Link to="/" className="link link-hover">Branding</Link> 
-    <Link to="/" className="link link-hover">Design</Link> 
-    <Link to="/" className="link link-hover">Marketing</Link> 
-    <Link to="/" className="link link-hover">Advertisement</Link>
+    <Link to="/" className="link link-hover">Laptop</Link> 
+    <Link to="/" className="link link-hover">Asus</Link> 
+    <Link to="/" className="link link-hover">Dell</Link> 
+    <Link to="/" className="link link-hover">Hp</Link>
   </div> 
   <div>
     <span className="footer-title">Company</span> 
     <Link to="/" className="link link-hover">About us</Link> 
     <Link to="/" className="link link-hover">Contact</Link> 
     <Link to="/" className="link link-hover">Jobs</Link> 
-    <Link to="/" className="link link-hover">Press kit</Link>
+    <Link to="/" className="link link-hover">Report</Link>
   </div> 
   <div>
     <span className="footer-title">Legal</span> 
@@ -32,7 +32,7 @@ const Footer = () => {
         <span className="label-text">Enter your email address</span>
       </label> 
       <div className="relative">
-        <input type="text" placeholder="username@site.com" className="input input-bordered w-full pr-16" /> 
+        <input type="text" placeholder="justlikenew@gmail.com" className="input input-bordered w-full pr-16" /> 
         <button className="btn btn-primary absolute top-0 right-0 rounded-l-none">Subscribe</button>
       </div>
     </div>

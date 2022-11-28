@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 import ConfirmationModal from '../../Pages/Shared/ConfirmationModal/ConfirmationModal'
 
 const AllSellers = () => {
@@ -13,7 +14,7 @@ const AllSellers = () => {
     const { data:userData = [] ,refetch} = useQuery({
         queryKey:['users'],
         queryFn: async ()=>{
-            const res = await fetch('http://localhost:5000/users',{
+            const res = await fetch('https://assignment-12-final-server.vercel.app/users',{
               headers:{
                 authorization: `bearer ${localStorage.getItem("accessToken")}`
               }
@@ -23,8 +24,10 @@ const AllSellers = () => {
         }
     })
 
+
+
     const handleDelete = user => {
-      fetch(`http://localhost:5000/users/${user._id}`,{
+      fetch(`https://assignment-12-final-server.vercel.app/users/${user._id}`,{
         method:"DELETE",
         headers:{
           authorization: `bearer ${localStorage.getItem("accessToken")}`
@@ -37,6 +40,28 @@ const AllSellers = () => {
       })
       console.log(user);
     }
+
+    const handleVerify = id =>{
+
+      // console.log(id)
+      fetch(`https://assignment-12-final-server.vercel.app/users/${id}`,{
+        method:"PUT",
+        headers:{
+            authorization: `bearer ${localStorage.getItem('accessToken')}`
+        }
+  
+    })
+    .then(res => res.json())
+    .then(data => {
+        toast.success("Verified! ☪ ")
+        console.log(data);
+        refetch();
+        
+    })
+
+    }
+
+    // console.log(userData,"sahil");
   return (
     <div>
         <div className="overflow-x-auto">
@@ -60,9 +85,24 @@ const AllSellers = () => {
             user?.role === "Seller" && 
             <tr key={userData._id}>
             
-            <td>{user.name}</td>
+            <td>
+              {user.name}
+              {
+              user?.verify === "verified" &&
+              <span> ✅ </span>
+            }
+              </td> 
+            
             <td>{user.email}</td>
-            <td>Verify</td>
+            <td>
+              {
+                user?.verify !== "verified" ?
+                <button onClick={()=>handleVerify(user._id)} className='btn btn-sm bg-green-700 text-white rounded'>Verify</button>
+                : 
+                <p>Verified 🙂 </p>
+
+              }
+            </td>
             
             <td>{user.role}</td>
             <td>

@@ -5,6 +5,7 @@ import AllUsers from "../../Dashboard/AllUsers/AllUsers";
 import MyOrder from "../../Dashboard/MyOrder/MyOrder";
 import MyProduct from "../../Dashboard/MyProduct/MyProduct";
 import Payment from "../../Dashboard/Payment/Payment";
+import Reported from "../../Dashboard/Reported/Reported";
 import Welcome from "../../Dashboard/Welcome/Welcome";
 import DashboardLayout from "../../Layout/DashboardLayout";
 import Blogs from "../../Pages/Blogs/Blogs";
@@ -48,7 +49,7 @@ export const router = createBrowserRouter([
             {
                 path:"/category/:name",
                 element:<PrivateRoute><Categories/></PrivateRoute>,
-                loader:({params}) => fetch(`http://localhost:5000/category/${params.name}`)
+                loader:({params}) => fetch(`https://assignment-12-final-server.vercel.app/category/${params.name}`)
             },
 
         ]
@@ -74,6 +75,10 @@ export const router = createBrowserRouter([
                 element:<AdminRoute><AllSellers/></AdminRoute>
             },
             {
+                path:"/dashboard/reported",
+                element:<AdminRoute><Reported/></AdminRoute>
+            },
+            {
                 path:"/dashboard/addproduct",
                 element:<SellerRoute><AddProduct/></SellerRoute>
             },{
@@ -83,8 +88,8 @@ export const router = createBrowserRouter([
             {
                 path:"/dashboard/payment/:id",
                 element:<Payment/>,
-                loader:({params}) => fetch(`http://localhost:5000/bookings/${params.id}`)
-                // loader: ({params}) => fetch(`http://localhost:5000/bookings/{params.id}`)
+                loader:({params}) => fetch(`https://assignment-12-final-server.vercel.app/bookings/${params.id}`)
+                // loader: ({params}) => fetch(`https://assignment-12-final-server.vercel.app/bookings/{params.id}`)
             }
             
         ]

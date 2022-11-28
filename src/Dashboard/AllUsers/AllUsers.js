@@ -13,7 +13,7 @@ const AllUsers = () => {
     const { data:userData = [] ,refetch} = useQuery({
         queryKey:['users'],
         queryFn: async ()=>{
-            const res = await fetch('http://localhost:5000/users',{
+            const res = await fetch('https://assignment-12-final-server.vercel.app/users',{
               headers:{
                 authorization: `bearer ${localStorage.getItem("accessToken")}`
               }
@@ -24,7 +24,7 @@ const AllUsers = () => {
     })
 
     const handleDelete = user => {
-      fetch(`http://localhost:5000/users/${user._id}`,{
+      fetch(`https://assignment-12-final-server.vercel.app/users/${user}`,{
         method:"DELETE",
         headers:{
           authorization: `bearer ${localStorage.getItem("accessToken")}`
@@ -57,13 +57,14 @@ const AllUsers = () => {
         userData.map((user,i)=> {
           return (
             user?.role === "Buyer" && 
-            <tr key={userData._id}>
+            <tr key={user._id}>
             {/* <th>{i+1}</th> */}
             <td>{user.name}</td>
             <td>{user.email}</td>
             <td>{user.role}</td>
             <td>
-            <label onClick={()=>setDeletingUser(user)} htmlFor="confirmation-modal" className="btn btn-error btn-sm rounded">
+            <label onClick={()=>setDeletingUser(user._id)} 
+            htmlFor="confirmation-modal" className="btn btn-error btn-sm rounded">
             DELETE
           </label>
              

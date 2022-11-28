@@ -3,7 +3,7 @@ import React from 'react'
 
 const Bannar = () => {
   return (
-    <div className="hero min-h-screen" style={{ backgroundImage: `url("https://images.unsplash.com/photo-1468495244123-6c6c332eeece?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1921&q=80")` }}>
+    <div className="hero h-[550px] mt-10 mb-10" style={{ backgroundImage: `url("https://images.unsplash.com/photo-1468495244123-6c6c332eeece?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1921&q=80")` }}>
   <div className="hero-overlay bg-opacity-60"></div>
   <div className="hero-content text-center text-neutral-content">
     <div className="max-w-md text-white">

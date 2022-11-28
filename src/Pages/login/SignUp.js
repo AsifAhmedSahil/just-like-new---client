@@ -2,6 +2,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form"; 
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../../Context/AuthProvider";
 // import { toast } from 'react-toastify'
 import useToken from "../../hooks/useToken";
@@ -33,7 +34,8 @@ const SignUp = () => {
         }
         updateUser(userInfo)
         .then(()=>{
-          // navigate("/")
+          toast.success("User Created Succesfully! 🙋 ")
+          navigate("/")
           
           saveUser(data.name,data.email,data.role)
           
@@ -50,7 +52,7 @@ const SignUp = () => {
 
   const saveUser = (name,email,role) =>{
     const user = {name,email,role};
-    fetch("http://localhost:5000/users",{
+    fetch("https://assignment-12-final-server.vercel.app/users",{
       method: 'POST',
       headers:{
         "content-type": "application/json"

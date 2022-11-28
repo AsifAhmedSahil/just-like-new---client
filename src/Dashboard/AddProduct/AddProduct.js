@@ -1,13 +1,37 @@
-import React, { useContext } from 'react'
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../../Context/AuthProvider';
 
 const AddProduct = () => {
 
     const imageHostKey = process.env.REACT_APP_imagebb_key
     const {user} = useContext(AuthContext)
-    // console.log(user);
+    console.log("from add product",user);
+
+    
+
+    // const[user,setUser] = useState()
+
+    const { data:userData = [] } = useQuery({
+      queryKey:['users'],
+      queryFn: async ()=>{
+          const res = await fetch('https://assignment-12-final-server.vercel.app/users',{
+            headers:{
+              authorization: `bearer ${localStorage.getItem("accessToken")}`
+            }
+          })
+          const data = await res.json()
+          return data; 
+      }
+  })
+
+  console.log(userData)
+  // console.log(user);
+
+
 
     const navigate = useNavigate()
     
@@ -37,30 +61,37 @@ const AddProduct = () => {
                 OriginalPrice:data.OriginalPrice,
                 img:imgData.data.url,
                 conditions:data.conditions,
-                date:data.date
+                status:data.status,
+                date:data.date,
+                description:data.description
                 // catogory:data.catogory
               }
-              console.log(product)
+              // console.log(product)
              // save products info to the database
-        fetch('http://localhost:5000/products',{
+        fetch('https://assignment-12-final-server.vercel.app/products',{
             method:"POST",
             headers:{
               "content-type": "application/json",
-              authorization: `bearer ${localStorage.getItem("accessToekn")}`
+              authorization: `bearer ${localStorage.getItem("accessToken")}`
             },
             body:JSON.stringify(product)
           })
           .then(res => res.json())
         .then(result =>{
           console.log(result);
-        //   toast.success(`${data.name} is added successfully!`)
+          toast.success(`You added product successfully!`)
           navigate("/dashboard/myproduct")
         })
         }
     })
   }
   return (
+     
+       
+      
+    
     <div>
+       
            <div className='w-96 p-7'>
             <h2 className="text-4xl">Add A Product</h2>
             <form onSubmit={handleSubmit(handleProduct)}>
@@ -95,6 +126,18 @@ const AddProduct = () => {
                               </select>
                           </div>
 
+                          <div className="form-control">
+                              <label className="label">
+                                  <span className="label-text">Condition</span>
+                              </label>
+                              <select {...register("status", { required: true })}
+                                  className='input input-bordered'>
+                                  <option value="Available">Available</option>
+                                  <option value="Sold">Sold</option>
+                                  
+                              </select>
+                          </div>
+
                 <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Email</span></label>
                     <input defaultValue={user?.email} type="email" {...register("email", {
@@ -117,6 +160,14 @@ const AddProduct = () => {
                     })} className="input input-bordered w-full max-w-xs" />
                     {/* {errors.name && <p className='text-red-500'>{errors.name.message}</p>} */}
                 </div>
+                {/* description */}
+                <div className="form-control">
+                              <label className="label">
+                                  <span className="label-text">Description</span>
+                              </label>
+                              <input {...register("description")} placeholder="description" className="input input-bordered" type='text' />
+                          </div>
+
                 <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Resell Price</span></label>
                     <input type="number" {...register("resellPrice", {
@@ -161,7 +212,7 @@ const AddProduct = () => {
 
           <input
             type="submit"
-            className="btn bg-gray-600 w-full text-white mt-7"
+            className="btn bg-gray-600 w-full  text-white mt-7"
             value="Add Product"
           />
         

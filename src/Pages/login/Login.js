@@ -2,6 +2,7 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 // import { toast } from 'react-toastify';
 // import { toast } from 'react-toastify';
 import { AuthContext } from '../../Context/AuthProvider';
@@ -29,7 +30,8 @@ const Login = () => {
     .then(result => {
       const user = result.user;
       console.log(user);
-      // toast.success()
+      toast.success("Login Successfull")
+      navigate("/")
       setLoginUserEmail(data.email)
       
   })

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
+import { toast } from "react-toastify";
 // import { toast } from "react-toastify";
 import { AuthContext } from "../../Context/AuthProvider";
 import ConfirmationModal from "../../Pages/Shared/ConfirmationModal/ConfirmationModal";
@@ -13,18 +14,17 @@ const MyProduct = () => {
   }
 
   
+
+  
   const { user } = useContext(AuthContext);
   console.log(user.email);
-  const {
-    data: products =[] ,
-    refetch,
-    isLoading,
+  const { data: products =[] ,refetch,isLoading,
   } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/products?email=${user.email}`,
+          `https://assignment-12-final-server.vercel.app/products?email=${user.email}`,
           {
             headers: {
               authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -37,10 +37,66 @@ const MyProduct = () => {
       } catch (error) {}
     },
   });
-  console.log(products);
+  // console.log(products);
+
+  const { data: booking =[] 
+  } = useQuery({
+    queryKey: ["booking"],
+    queryFn: async () => {
+      try {
+        const res = await fetch(
+          "https://assignment-12-final-server.vercel.app/booking",
+          {
+            headers: {
+              authorization: `bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
+        const data = await res.json();
+        // console.log(data);
+        return data;
+      } catch (error) {}
+    },
+  });
+
+  // console.log(booking);
+
+  const paid  = booking.filter(book => book.paid === true);
+  console.log(paid)
+
+  
+
+  
+  
+
+    
+
+
+
+  
+
+  
+
+  const handleAdvertize = id =>{
+    // console.log(id)
+    fetch(`https://assignment-12-final-server.vercel.app/products/${id}`,{
+      method:"PUT",
+      headers:{
+          authorization: `bearer ${localStorage.getItem('accessToken')}`
+      }
+
+  })
+  .then(res => res.json())
+  .then(data => {
+      toast.success("Check Advertize Section! ☪ ")
+      console.log(data);
+      refetch();
+  })
+  
+  }
 
   const handleDelete = product => {
-    fetch(`http://localhost:5000/products/${product._id}`,{
+    fetch(`https://assignment-12-final-server.vercel.app/products/${product._id}`,{
         method:"DELETE",
         headers:{
           authorization: `bearer ${localStorage.getItem("accessToken")}`
@@ -55,7 +111,7 @@ const MyProduct = () => {
         }
         
       })
-    console.log(products)
+    // console.log(products)
   }
 
   //   if(isLoading){
@@ -72,6 +128,8 @@ const MyProduct = () => {
               <th>Avatar</th>
               <th>Name</th>
               <th>Email</th>
+              <th>Status</th>
+              <th>Advertize</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -90,13 +148,41 @@ const MyProduct = () => {
                   <td>{product.name}</td>
                   <td>{product.email}</td>
                   <td>
-                  <label onClick={()=>setDeletingProduct(product)} htmlFor="confirmation-modal" className="btn btn-error btn-sm rounded">
+                  {
+                    product?.paid !== true &&
+                    
+                    <button className="btn btn-cyan-800 text-white  btn-sm rounded">Available</button> 
+                    // <button className="btn btn-cyan-800 text-white btn-sm rounded">Sold</button>
+                  }
+                  {
+                    product?.paid === true && 
+                    <button className="btn bg-green-600 text-white btn-sm rounded">Sold</button>
+                  }
+                  
+                  </td>
+
+                  <td>
+                    {
+                      product?.advertize !== "advertize" ?
+
+                      <button onClick={()=>handleAdvertize(product._id)} className="btn btn-cyan-800 text-white btn-sm rounded">Advertise</button>
+                      : 
+                      <button onClick={()=>handleAdvertize(product._id)} className="btn disabled btn-sm rounded bg-yellow-200 text-black hover:text-white">Advertized</button>
+                    }
+                    </td>
+                  
+                  <td>
+                  <label onClick={()=>setDeletingProduct(product)} 
+                  htmlFor="confirmation-modal" 
+                  className="btn btn-error btn-sm rounded">
                   Delete
       </label>
                     
                   </td>
                 </tr>
               ))}
+
+              
 
             
           </tbody>

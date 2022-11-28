@@ -10,11 +10,11 @@ const CheckoutForm = ({booking}) => {
     const stripe = useStripe();
 const elements = useElements();
 
-const {price,user,email,_id} = booking;
+const {price,user,email,_id,productID} = booking;
 
 useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://assignment-12-final-server.vercel.app/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" ,
       authorization: `bearer ${localStorage.getItem("accessToken")}`
@@ -79,10 +79,11 @@ const handleSubmit = async(event) =>{
                 price,
                 transactionId: paymentIntent.id,
                 email,
-                bookingId: _id
+                bookingId: _id,
+                productID:productID
             }
 
-            fetch("http://localhost:5000/payments",{
+            fetch("https://assignment-12-final-server.vercel.app/payments",{
               method:"POST",
               headers:{
                 "content-type":"application/json",
@@ -98,6 +99,25 @@ const handleSubmit = async(event) =>{
                 setTransactionId(paymentIntent.id)
               }
             })
+
+            // fetch("https://assignment-12-final-server.vercel.app/prod",{
+            //   method:"POST",
+            //   headers:{
+            //     "content-type":"application/json",
+            //     authorization: `bearer ${localStorage.getItem('accessToken')}`
+            //   },
+            //   body: JSON.stringify(payment)
+            // })
+            // .then(res => res.json())
+            // .then(data => {
+            //   console.log(data)
+            //   if(data.insertedId){
+            //     setSuccess("Completed payment compleated")
+            //     setTransactionId(paymentIntent.id)
+            //   }
+            // })
+            
+            
 
           }
 
