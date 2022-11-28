@@ -14,7 +14,7 @@ const {price,user,email,_id,productID} = booking;
 
 useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("https://assignment-12-final-server.vercel.app/create-payment-intent", {
+    fetch("http://localhost:5000/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" ,
       authorization: `bearer ${localStorage.getItem("accessToken")}`
@@ -83,7 +83,7 @@ const handleSubmit = async(event) =>{
                 productID:productID
             }
 
-            fetch("https://assignment-12-final-server.vercel.app/payments",{
+            fetch("http://localhost:5000/payments",{
               method:"POST",
               headers:{
                 "content-type":"application/json",
@@ -100,7 +100,7 @@ const handleSubmit = async(event) =>{
               }
             })
 
-            // fetch("https://assignment-12-final-server.vercel.app/prod",{
+            // fetch("http://localhost:5000/prod",{
             //   method:"POST",
             //   headers:{
             //     "content-type":"application/json",

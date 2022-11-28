@@ -28,11 +28,12 @@ const Login = () => {
     setLoginError('')
     SignIn(data.email,data.password)
     .then(result => {
+      setLoginUserEmail(data.email)
       const user = result.user;
       console.log(user);
       toast.success("Login Successfull")
-      navigate("/")
-      setLoginUserEmail(data.email)
+      // navigate("/")
+      
       
   })
   .catch(error => {

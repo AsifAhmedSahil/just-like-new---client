@@ -24,7 +24,7 @@ const MyProduct = () => {
     queryFn: async () => {
       try {
         const res = await fetch(
-          `https://assignment-12-final-server.vercel.app/products?email=${user.email}`,
+          `http://localhost:5000/products?email=${user.email}`,
           {
             headers: {
               authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -45,7 +45,7 @@ const MyProduct = () => {
     queryFn: async () => {
       try {
         const res = await fetch(
-          "https://assignment-12-final-server.vercel.app/booking",
+          "http://localhost:5000/booking",
           {
             headers: {
               authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -79,7 +79,7 @@ const MyProduct = () => {
 
   const handleAdvertize = id =>{
     // console.log(id)
-    fetch(`https://assignment-12-final-server.vercel.app/products/${id}`,{
+    fetch(`http://localhost:5000/products/${id}`,{
       method:"PUT",
       headers:{
           authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -96,7 +96,7 @@ const MyProduct = () => {
   }
 
   const handleDelete = product => {
-    fetch(`https://assignment-12-final-server.vercel.app/products/${product._id}`,{
+    fetch(`http://localhost:5000/products/${product._id}`,{
         method:"DELETE",
         headers:{
           authorization: `bearer ${localStorage.getItem("accessToken")}`

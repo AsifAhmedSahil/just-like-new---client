@@ -9,7 +9,7 @@ const ProductCard = ({ product,setProduct }) => {
 //   const { data:userData = [] } = useQuery({
 //     queryKey:['users'],
 //     queryFn: async ()=>{
-//         const res = await fetch('https://assignment-12-final-server.vercel.app/users',{
+//         const res = await fetch('http://localhost:5000/users',{
 //           headers:{
 //             authorization: `bearer ${localStorage.getItem("accessToken")}`
 //           }
@@ -21,14 +21,12 @@ const ProductCard = ({ product,setProduct }) => {
 
 
 
-// console.log("my product user data",userData);
-  
-  // console.log(product);
+
   const {name,img,OriginalPrice,resellPrice,location,Uses,date,sellerName,_id} = product;
 
   const handleReport = id =>{
     console.log(id);
-    fetch(`https://assignment-12-final-server.vercel.app/product/${id}`,{
+    fetch(`http://localhost:5000/product/${id}`,{
       method:"PUT",
       headers:{
           authorization: `bearer ${localStorage.getItem('accessToken')}`

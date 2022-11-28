@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { useState } from 'react'
 import ConfirmationModal from '../../Pages/Shared/ConfirmationModal/ConfirmationModal'
+import axios from 'axios';
 
 const AllUsers = () => {
   const [ deletingUser,setDeletingUser] = useState(null)
@@ -9,11 +10,13 @@ const AllUsers = () => {
     setDeletingUser(null)
   }
 
+  const [userData,setUserData] = useState([])
   
-    const { data:userData = [] ,refetch} = useQuery({
+    // const { data:userData = [] ,refetch} = useQuery({
+    const { data:Data = [] ,refetch} = useQuery({
         queryKey:['users'],
         queryFn: async ()=>{
-            const res = await fetch('https://assignment-12-final-server.vercel.app/users',{
+            const res = await fetch('http://localhost:5000/users',{
               headers:{
                 authorization: `bearer ${localStorage.getItem("accessToken")}`
               }
@@ -23,8 +26,16 @@ const AllUsers = () => {
         }
     })
 
+    // axios use 
+    axios.get("http://localhost:5000/users")
+    .then(res => 
+      setUserData(res.data)
+      
+      )
+
+
     const handleDelete = user => {
-      fetch(`https://assignment-12-final-server.vercel.app/users/${user}`,{
+      fetch(`http://localhost:5000/users/${user}`,{
         method:"DELETE",
         headers:{
           authorization: `bearer ${localStorage.getItem("accessToken")}`

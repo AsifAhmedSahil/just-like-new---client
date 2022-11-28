@@ -18,7 +18,7 @@ const AddProduct = () => {
     const { data:userData = [] } = useQuery({
       queryKey:['users'],
       queryFn: async ()=>{
-          const res = await fetch('https://assignment-12-final-server.vercel.app/users',{
+          const res = await fetch('http://localhost:5000/users',{
             headers:{
               authorization: `bearer ${localStorage.getItem("accessToken")}`
             }
@@ -68,7 +68,7 @@ const AddProduct = () => {
               }
               // console.log(product)
              // save products info to the database
-        fetch('https://assignment-12-final-server.vercel.app/products',{
+        fetch('http://localhost:5000/products',{
             method:"POST",
             headers:{
               "content-type": "application/json",
