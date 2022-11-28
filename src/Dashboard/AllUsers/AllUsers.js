@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { useState } from 'react'
 import ConfirmationModal from '../../Pages/Shared/ConfirmationModal/ConfirmationModal'
-import axios from 'axios';
+// import axios from 'axios';
 
 const AllUsers = () => {
   const [ deletingUser,setDeletingUser] = useState(null)
@@ -10,13 +10,13 @@ const AllUsers = () => {
     setDeletingUser(null)
   }
 
-  const [userData,setUserData] = useState([])
+  // const [userData,setUserData] = useState([])
   
+    const { data:userData = [] ,refetch} = useQuery({
     // const { data:userData = [] ,refetch} = useQuery({
-    const { data:Data = [] ,refetch} = useQuery({
         queryKey:['users'],
         queryFn: async ()=>{
-            const res = await fetch('http://localhost:5000/users',{
+            const res = await fetch('https://assignment-12-final-server.vercel.app/users',{
               headers:{
                 authorization: `bearer ${localStorage.getItem("accessToken")}`
               }
@@ -27,15 +27,17 @@ const AllUsers = () => {
     })
 
     // axios use 
-    axios.get("http://localhost:5000/users")
-    .then(res => 
-      setUserData(res.data)
+    // axios.get("https://assignment-12-final-server.vercel.app/users")
+    // .then(res => 
+    //   setUserData(res.data)
       
-      )
+    //   )
+
+    console.log(userData)
 
 
     const handleDelete = user => {
-      fetch(`http://localhost:5000/users/${user}`,{
+      fetch(`https://assignment-12-final-server.vercel.app/users/${user}`,{
         method:"DELETE",
         headers:{
           authorization: `bearer ${localStorage.getItem("accessToken")}`

@@ -9,7 +9,7 @@ const ProductCard = ({ product,setProduct }) => {
 //   const { data:userData = [] } = useQuery({
 //     queryKey:['users'],
 //     queryFn: async ()=>{
-//         const res = await fetch('http://localhost:5000/users',{
+//         const res = await fetch('https://assignment-12-final-server.vercel.app/users',{
 //           headers:{
 //             authorization: `bearer ${localStorage.getItem("accessToken")}`
 //           }
@@ -26,7 +26,7 @@ const ProductCard = ({ product,setProduct }) => {
 
   const handleReport = id =>{
     console.log(id);
-    fetch(`http://localhost:5000/product/${id}`,{
+    fetch(`https://assignment-12-final-server.vercel.app/product/${id}`,{
       method:"PUT",
       headers:{
           authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -66,7 +66,7 @@ const ProductCard = ({ product,setProduct }) => {
             <label htmlFor="booking-modal" 
             onClick={()=>setProduct(product)}
             className="btn btn-primary">Book Now</label>
-            <button onClick={() => handleReport(_id)} className="btn">Report</button>
+            <button onClick={() => handleReport(_id)} className="btn rounded">Report to admin</button>
           </div>
         </div>
       </div>

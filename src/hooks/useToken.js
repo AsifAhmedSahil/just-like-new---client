@@ -5,11 +5,12 @@ const useToken = email =>{
     const [token,setToekn] = useState("");
     useEffect(()=>{
         if(email){
-            fetch(`http://localhost:5000/jwt?email=${email}`)
+            fetch(`https://assignment-12-final-server.vercel.app/jwt?email=${email}`)
     .then(res =>res.json())
     .then(data => {
       console.log("usetoken",data)
       if(data.accessToken){
+      // if(data.acknowledged){
         localStorage.setItem("accessToken",data.accessToken);
         // navigate("/")
         setToekn(data.accessToken)

@@ -35,7 +35,7 @@ const SignUp = () => {
         updateUser(userInfo)
         .then(()=>{
           toast.success("User Created Succesfully! 🙋 ")
-          navigate("/")
+          // navigate("/")
           
           saveUser(data.name,data.email,data.role)
           
@@ -52,7 +52,7 @@ const SignUp = () => {
 
   const saveUser = (name,email,role) =>{
     const user = {name,email,role};
-    fetch("http://localhost:5000/users",{
+    fetch("https://assignment-12-final-server.vercel.app/users",{
       method: 'POST',
       headers:{
         "content-type": "application/json"

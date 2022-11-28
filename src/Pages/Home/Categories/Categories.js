@@ -13,7 +13,7 @@ const Categories = () => {
 
   const {data:products = [],isLoading,refetch} = useQuery({
     queryKey:['products'],
-    queryFn: ()=> fetch(`http://localhost:5000/category/${data[0]?.name}`)
+    queryFn: ()=> fetch(`https://assignment-12-final-server.vercel.app/category/${data[0]?.name}`)
     .then(res => res.json())
     
   })

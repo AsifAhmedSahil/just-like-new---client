@@ -15,21 +15,37 @@ const AddProduct = () => {
 
     // const[user,setUser] = useState()
 
-    const { data:userData = [] } = useQuery({
-      queryKey:['users'],
-      queryFn: async ()=>{
-          const res = await fetch('http://localhost:5000/users',{
-            headers:{
-              authorization: `bearer ${localStorage.getItem("accessToken")}`
-            }
-          })
-          const data = await res.json()
-          return data; 
-      }
-  })
+  //   const { data:userData = [] } = useQuery({
+  //     queryKey:['users'],
+  //     queryFn: async ()=>{
+  //         const res = await fetch('https://assignment-12-final-server.vercel.app/users',{
+  //           headers:{
+  //             authorization: `bearer ${localStorage.getItem("accessToken")}`
+  //           }
+  //         })
+  //         const data = await res.json()
+  //         return data; 
+  //     }
+  // })
 
-  console.log(userData)
+  // console.log(userData)
   // console.log(user);
+
+//   const { data:userData = [] } = useQuery({
+//     queryKey:['users'],
+//     queryFn: async ()=>{
+//         const res = await fetch(`https://assignment-12-final-server.vercel.app/user?email=${user?.email}`,{
+//           headers:{
+//             authorization: `bearer ${localStorage.getItem("accessToken")}`
+//           }
+//         })
+//         const data = await res.json()
+//         return data; 
+//     }
+// })
+
+// console.log("user with the help of email",userData);
+
 
 
 
@@ -56,7 +72,7 @@ const AddProduct = () => {
                 sellerName:data.name,
                 location: data.location,
                 email:data.email,
-                Uses: data.Uses,
+                Year_OF_uses: data.Uses,
                 resellPrice:data.resellPrice,
                 OriginalPrice:data.OriginalPrice,
                 img:imgData.data.url,
@@ -68,7 +84,7 @@ const AddProduct = () => {
               }
               // console.log(product)
              // save products info to the database
-        fetch('http://localhost:5000/products',{
+        fetch('https://assignment-12-final-server.vercel.app/products',{
             method:"POST",
             headers:{
               "content-type": "application/json",
@@ -154,7 +170,7 @@ const AddProduct = () => {
                     {/* {errors.name && <p className='text-red-500'>{errors.name.message}</p>} */}
                 </div>
                 <div className="form-control w-full max-w-xs">
-                    <label className="label"> <span className="label-text">Uses Time</span></label>
+                    <label className="label"> <span className="label-text">Uses Time(years)</span></label>
                     <input type="text" {...register("Uses", {
                         required: "Uses Required"
                     })} className="input input-bordered w-full max-w-xs" />
