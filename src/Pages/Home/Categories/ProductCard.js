@@ -1,28 +1,46 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
 
 
 const ProductCard = ({ product,setProduct }) => {
-  // const [user,setUser] = useState("")
+  const [verified,setVerified] = useState("")
 
-//   const { data:userData = [] } = useQuery({
-//     queryKey:['users'],
+  
+
+
+
+
+  const {name,img,OriginalPrice,resellPrice,location,Uses,date,sellerName,_id,email} = product;
+
+
+//   const { data:userData } = useQuery({
+//     queryKey:['user'],
 //     queryFn: async ()=>{
-//         const res = await fetch('https://assignment-12-final-server.vercel.app/users',{
+//         const res = await fetch(`http://localhost:5000/user/seller?email=${email}`,{
 //           headers:{
 //             authorization: `bearer ${localStorage.getItem("accessToken")}`
 //           }
 //         })
 //         const data = await res.json()
+//         console.log(data)
 //         return data; 
 //     }
 // })
 
+console.log("prodiuct card",email);
+
+useEffect(()=>{
+  fetch(`http://localhost:5000/user/seller/${email}`,{
+              headers:{
+                authorization: `bearer ${localStorage.getItem("accessToken")}`}
+              })
+              .then(res => res.json())
+              .then(data => setVerified(data))
+},[email])
 
 
-
-  const {name,img,OriginalPrice,resellPrice,location,Uses,date,sellerName,_id} = product;
+// console.log(userData);
 
   const handleReport = id =>{
     console.log(id);
@@ -53,9 +71,14 @@ const ProductCard = ({ product,setProduct }) => {
         </figure>
         <div className="card-body items-center text-center">
           <h2 className="card-title">Brand: {name}</h2>
-          <p className="font-bold">Seller Name: {sellerName} 
-          
+          if(verified === "true"){
+            <p className="font-bold">Seller Name: {sellerName} 
+               <span> ✅ </span>
             </p>
+           
+          }
+          
+          
           <p>Original Price: {OriginalPrice}</p>
           <p>Resell Price: {resellPrice}</p>
           <p>Location: {location}</p>

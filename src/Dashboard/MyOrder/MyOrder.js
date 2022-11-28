@@ -6,7 +6,6 @@ import { AuthContext } from '../../Context/AuthProvider'
 const MyOrder = () => {
     const {user} = useContext(AuthContext)
 
-    // const url = `https://assignment-12-final-server.vercel.app/bookings?email=${user?.email}`
 
     const {data: bookings = []} = useQuery({
         queryKey: ["bookings", user?.email],

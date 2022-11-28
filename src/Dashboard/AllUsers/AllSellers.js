@@ -10,11 +10,11 @@ const AllSellers = () => {
     setDeletingUser(null)
   }
 
-  // const[userData,setUserData] = useState([])
+  
 
   
     const { data:userData = [] ,refetch} = useQuery({
-    // const { data:Data = [] ,refetch} = useQuery({
+    
         queryKey:['users'],
         queryFn: async ()=>{
             const res = await fetch('https://assignment-12-final-server.vercel.app/users',{
@@ -120,20 +120,6 @@ const AllSellers = () => {
           )
         }
 
-      //   <tr key={userData._id}>
-      //   <th>{i+1}</th>
-      //   <td>{user.name}</td>
-      //   <td>{user.email}</td>
-      //   <td>{user.role}</td>
-      //   <td>
-      //   <label onClick={()=>setDeletingUser(user)} htmlFor="confirmation-modal" className="btn btn-error btn-sm rounded">
-      //   DELETE
-      // </label>
-         
-      //     </td>
-      // </tr>
-
-      
       
       )
      }

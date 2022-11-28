@@ -10,7 +10,7 @@ const AllUsers = () => {
     setDeletingUser(null)
   }
 
-  // const [userData,setUserData] = useState([])
+  
   
     const { data:userData = [] ,refetch} = useQuery({
     // const { data:userData = [] ,refetch} = useQuery({
@@ -26,12 +26,7 @@ const AllUsers = () => {
         }
     })
 
-    // axios use 
-    // axios.get("https://assignment-12-final-server.vercel.app/users")
-    // .then(res => 
-    //   setUserData(res.data)
-      
-    //   )
+  
 
     console.log(userData)
 
@@ -86,21 +81,7 @@ const AllUsers = () => {
           )
         }
 
-      //   <tr key={userData._id}>
-      //   <th>{i+1}</th>
-      //   <td>{user.name}</td>
-      //   <td>{user.email}</td>
-      //   <td>{user.role}</td>
-      //   <td>
-      //   <label onClick={()=>setDeletingUser(user)} htmlFor="confirmation-modal" className="btn btn-error btn-sm rounded">
-      //   DELETE
-      // </label>
-         
-      //     </td>
-      // </tr>
-
-      
-      
+ 
       )
      }
     

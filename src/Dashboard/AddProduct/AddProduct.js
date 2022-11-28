@@ -4,49 +4,20 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../Context/AuthProvider';
+import useSeller from '../../hooks/useSeller';
+import useVerified from '../../hooks/useVerified';
 
 const AddProduct = () => {
 
+  
+  
     const imageHostKey = process.env.REACT_APP_imagebb_key
     const {user} = useContext(AuthContext)
     console.log("from add product",user);
+    // const [isSeller] = useSeller(user?.email)
+    const [isVerified] = useVerified(user?.email)
 
-    
-
-    // const[user,setUser] = useState()
-
-  //   const { data:userData = [] } = useQuery({
-  //     queryKey:['users'],
-  //     queryFn: async ()=>{
-  //         const res = await fetch('https://assignment-12-final-server.vercel.app/users',{
-  //           headers:{
-  //             authorization: `bearer ${localStorage.getItem("accessToken")}`
-  //           }
-  //         })
-  //         const data = await res.json()
-  //         return data; 
-  //     }
-  // })
-
-  // console.log(userData)
-  // console.log(user);
-
-//   const { data:userData = [] } = useQuery({
-//     queryKey:['users'],
-//     queryFn: async ()=>{
-//         const res = await fetch(`https://assignment-12-final-server.vercel.app/user?email=${user?.email}`,{
-//           headers:{
-//             authorization: `bearer ${localStorage.getItem("accessToken")}`
-//           }
-//         })
-//         const data = await res.json()
-//         return data; 
-//     }
-// })
-
-// console.log("user with the help of email",userData);
-
-
+    console.log(isVerified)
 
 
     const navigate = useNavigate()
@@ -66,7 +37,7 @@ const AddProduct = () => {
     .then(imgData => {
         console.log(imgData)
         if(imgData.success){
-            // console.log(imgData.data.url);
+            
             const product = {
                 name: data.category,
                 sellerName:data.name,
@@ -80,10 +51,9 @@ const AddProduct = () => {
                 status:data.status,
                 date:data.date,
                 description:data.description
-                // catogory:data.catogory
+                
               }
-              // console.log(product)
-             // save products info to the database
+              
         fetch('https://assignment-12-final-server.vercel.app/products',{
             method:"POST",
             headers:{
@@ -101,6 +71,8 @@ const AddProduct = () => {
         }
     })
   }
+
+
   return (
      
        

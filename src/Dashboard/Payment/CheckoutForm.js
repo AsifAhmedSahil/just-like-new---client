@@ -100,25 +100,6 @@ const handleSubmit = async(event) =>{
               }
             })
 
-            // fetch("https://assignment-12-final-server.vercel.app/prod",{
-            //   method:"POST",
-            //   headers:{
-            //     "content-type":"application/json",
-            //     authorization: `bearer ${localStorage.getItem('accessToken')}`
-            //   },
-            //   body: JSON.stringify(payment)
-            // })
-            // .then(res => res.json())
-            // .then(data => {
-            //   console.log(data)
-            //   if(data.insertedId){
-            //     setSuccess("Completed payment compleated")
-            //     setTransactionId(paymentIntent.id)
-            //   }
-            // })
-            
-            
-
           }
 
           setProcessing(false)
