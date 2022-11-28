@@ -36,7 +36,7 @@ const Advertize = () => {
         {products?.map((product) => {
           return (
             product?.advertize === "advertize" &&
-            product?.paid !== true ? (
+            product?.paid !== true && 
               <div className="mt-10">
                 <div className="card  shadow-xl">
                   <figure>
@@ -61,9 +61,8 @@ const Advertize = () => {
                 </div>
               </div>
             )
-            : 
-            <p>No Advertize Right Now</p>
-          );
+            
+          ;
         })}
       </div>
     </>
